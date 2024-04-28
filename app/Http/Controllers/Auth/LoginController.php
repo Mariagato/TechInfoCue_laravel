@@ -3,8 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Kreait\Firebase\Contract\Auth as FirebaseAuth;
+use Kreait\Firebase\Auth\SignInResult\SignInResult;
+use Kreait\Firebase\Exception\AppCheck\InvalidAppCheckToken;
+use Kreait\Firebase\Exception\FirebaseException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
+use Session;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -26,31 +35,63 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/cms/dashboard';
+    protected $auth;
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(FirebaseAuth $auth)
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware("guest")->except("logout");
+        $this->auth = app("firebase.auth");
+        // $auth = app("firebase.auth");
     }
 
-    protected function authenticated(Request $request,$user)
+    public function login(Request $request)
     {
-        if ($user->hasRole('admin')) {
-            return redirect()->route('dashboard')->withCookie(cookie()->forever('allowCkfinder', "1"));
+        try {
+            $auth = app("firebase.auth");
+            $signInResult = $auth->signInWithEmailAndPassword(
+                $request["email"],
+                $request["password"]
+            );
+            $user = new User($signInResult->data());
+
+            //uid Session
+            $loginuid = $signInResult->firebaseUserId();
+            Session::put('uid', $loginuid);
+
+            $result = Auth::login($user);
+            return redirect($this->redirectPath());
+
+        } catch (FirebaseException $e) {
+            throw ValidationException::withMessages([
+                $this->username() => [trans("auth.failed")],
+            ]);
         }
     }
-
-    protected function logout(Request $request)
+    public function username()
     {
-        $this->guard()->logout();
-        $request->session()->invalidate();
-        $cookie = cookie()->forget('allowCkfinder');
-
-        return redirect('/')->withCookie($cookie);
+        return "email";
+    }
+    public function handleCallback(Request $request, $provider)
+    {
+        $socialTokenId = $request->input("social-login-tokenId", "");
+        try {
+            $verifiedIdToken = $this->auth->verifyIdToken($socialTokenId);
+            $user = new User();
+            $user->displayName = $verifiedIdToken->getClaim("name");
+            $user->email = $verifiedIdToken->getClaim("email");
+            $user->localId = $verifiedIdToken->getClaim("user_id");
+            Auth::login($user);
+            return redirect($this->redirectPath());
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->route("login");
+        } catch (InvalidAppCheckToken $e) {
+            return redirect()->route("login");
+        }
     }
 }

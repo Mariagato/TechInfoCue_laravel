@@ -13,9 +13,9 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('home', function () {
-    return auth()->check() ? redirect()->route('dashboard') : redirect()->route('home');
+    return redirect()->route('home');
 });
-Auth::routes();
+
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => ['minify']], function () {
@@ -29,7 +29,7 @@ Route::group(['middleware' => ['minify']], function () {
 
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
-Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'cms'], function () {
+Route::group(['prefix' => 'cms'], function () {
     //Dashboard
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/', 'DashboardController@index')->name('dashboard');
@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'cms'], functi
         Route::post('edit-user/{id}', 'UserController@updateOrCreateUser');
         Route::get('json-list', 'UserController@jsonListUsers');
     });
-    
+
 
     //Files
     Route::group(['prefix' => 'files'], function () {
@@ -157,3 +157,8 @@ Route::group(['middleware' => ['auth', 'role:admin'], 'prefix' => 'cms'], functi
         Route::post('edit', 'AccountController@update');
     });
 });
+
+Auth::routes();
+
+Route::get('login', 'HomeController@login')->name('login');
+Route::post('login/{provider}/callback', 'Auth\LoginController@handleCallback');

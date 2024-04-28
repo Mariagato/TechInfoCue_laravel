@@ -12,13 +12,7 @@ class AnalyticController extends Controller
 
     public function __construct()
     {
-        $ga = get_info('analytics');
 
-        if ( ! empty($ga)) {
-            $this->gacode = $ga;
-        }
-
-        $this->ga = new Analytic();
 
     }
 
@@ -36,7 +30,7 @@ class AnalyticController extends Controller
         $this->ga->setProfileById($this->gacode);
 
         $date_start = $request->get('date_start');
-        $date_end   = $request->get('date_end');
+        $date_end = $request->get('date_end');
 
         $this->ga->setDateRange($date_start, $date_end);
         $visitas = $this->ga->getVisitors();
@@ -57,13 +51,13 @@ class AnalyticController extends Controller
         $this->ga->setProfileById($this->gacode);
 
         $date_start = $request->get('date_start');
-        $date_end   = $request->get('date_end');
+        $date_end = $request->get('date_end');
 
         $this->ga->setDateRange($date_start, $date_end);
 
         $d['rebound'] = $this->ga->getBounceRate();
-        $d['visits']  = $this->ga->getTotalVisits();
-        $d['time']    = $this->ga->getTimePage();
+        $d['visits'] = $this->ga->getTotalVisits();
+        $d['time'] = $this->ga->getTimePage();
 
         return response()->json($d);
     }
@@ -71,9 +65,9 @@ class AnalyticController extends Controller
     public function graph(Request $request)
     {
         $this->ga->setProfileById($this->gacode);
-        $tipo       = $request->get('type');
+        $tipo = $request->get('type');
         $date_start = $request->get('date_start');
-        $date_end   = $request->get('date_end');
+        $date_end = $request->get('date_end');
         $this->ga->setDateRange($date_start, $date_end);
         $aData = [];
 
