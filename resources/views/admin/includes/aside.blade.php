@@ -19,7 +19,7 @@
                                         Administrador
                                     @endrole
                                 </span>
-                                {{ auth()->user()->email ?? 'Unset' }}
+                                {{ auth()->user() }}
                             </a>
                         </div>
                         <div id="nav">
@@ -56,118 +56,82 @@
                                     <li class="{{ check_item_active('main_li', 'dashboard') }}">
                                         <a href="{{ route('dashboard') }}">
                                             <i class="icon mdi-action-dashboard i-20"></i>
-                                            <span class="font-normal">Escritorio</span>
+                                            <span class="font-normal">Dashboard</span>
                                         </a>
                                     </li>
                                     <li class="{{ check_item_active('main_li_id', 'slides', '1') }}">
                                         <a href="{{ route('slides.edit_slide', ['id' => 1]) }}">
-                                            <i class="icon mdi-image-camera-alt i-20"></i>
-                                            <span class="font-normal">Slide principal</span>
+                                            <i
+                                                class="icon mdi-content-inbox
+                                            i-20"></i>
+                                            <span class="font-normal">Inventario</span>
                                         </a>
                                     </li>
                                     <li class="{{ check_item_active('main_li', 'contents') }}">
                                         <a><span class="pull-right text-muted">
                                                 <i class="fa fa-caret-down"></i></span>
-                                            <i class="icon mdi-file-folder i-20"></i>
-                                            <span class="font-normal">Contenidos</span>
+                                            <i
+                                                class="icon mdi-action-assignment-turned-in
+                                            i-20"></i>
+                                            <span class="font-normal">Prestamos</span>
                                         </a>
                                         <ul class="nav nav-sub">
                                             <li class="{{ check_item_active('inner_li_add', 'contents', 'edit') }}">
-                                                <a href="{{ route('contents.edit', ['id' => 0]) }}">Agregar
-                                                    contenido</a>
+                                                <a href="{{ route('contents.edit', ['id' => 0]) }}">Disponibilidad</a>
                                             </li>
                                             <li
                                                 class="{{ check_item_active('inner_li_list', 'contents', 'list,edit') }}">
-                                                <a href="{{ route('contents.list') }}">Lista de contenidos</a>
+                                                <a href="{{ route('contents.list') }}">reporte del dia</a>
                                             </li>
-                                            <li class="{{ check_item_active('inner_li', 'contents', 'categories') }}">
-                                                <a href="{{ route('contents.categories') }}">Administrar categorías</a>
+                                        </ul>
+                                    </li>
+                                    <li class="{{ check_item_active('main_li', 'contents') }}">
+                                        <a><span class="pull-right text-muted">
+                                                <i class="fa fa-caret-down"></i></span>
+                                            <i
+                                                class="icon mdi-action-event
+                                            i-20"></i>
+                                            <span class="font-normal">Reservas</span>
+                                        </a>
+                                        <ul class="nav nav-sub">
+                                            <li class="{{ check_item_active('inner_li_add', 'contents', 'edit') }}">
+                                                <a href="{{ route('contents.edit', ['id' => 0]) }}">Lista de
+                                                    reservas</a>
+                                            </li>
+                                            <li
+                                                class="{{ check_item_active('inner_li_list', 'contents', 'list,edit') }}">
+                                                <a href="{{ route('contents.list') }}">reporte del dia</a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="{{ check_item_active('main_li', 'services') }}">
                                         <a><span class="pull-right text-muted">
                                                 <i class="fa fa-caret-down"></i></span>
-                                            <i class="icon mdi-action-assignment i-20"></i>
-                                            <span class="font-normal">Servicios</span>
+                                            <i
+                                                class="icon mdi-action-report-problem
+                                            i-20"></i>
+                                            <span class="font-normal">Mantenimiento</span>
                                         </a>
-
-                                        <ul class="nav nav-sub">
-                                            <li class="{{ check_item_active('inner_li_add', 'services', 'edit') }}">
-                                                <a href="{{ route('services.edit', ['id' => 0]) }}">Agregar
-                                                    servicio</a>
-                                            </li>
-                                            <li
-                                                class="{{ check_item_active('inner_li_list', 'services', 'list,edit') }}">
-                                                <a href="{{ route('services.list') }}">Lista de servicios</a>
-                                            </li>
-                                            <li class="{{ check_item_active('inner_li', 'services', 'categories') }}">
-                                                <a href="{{ route('services.categories') }}">Administrar categorías</a>
-                                            </li>
-                                        </ul>
                                     </li>
                                     <li class="{{ check_item_active('main_li', 'users') }}">
                                         <a><span class="pull-right text-muted">
                                                 <i class="fa fa-caret-down"></i></span>
-                                            <i class="icon mdi-action-bookmark-outline i-20"></i>
-                                            <span class="font-normal">Usuarios</span>
-                                        </a>
-                                        <ul class="nav nav-sub">
-                                            <li class="{{ check_item_active('inner_li_add', 'users', 'edit') }}">
-                                                <a href="{{ route('users.edit', ['id' => 0]) }}">Agregar usuario</a>
-                                            </li>
-                                            <li class="{{ check_item_active('inner_li_list', 'users', 'list,edit') }}">
-                                                <a href="{{ route('users') }}">Lista de usuarios</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="{{ check_item_active('main_li', 'articles') }}">
-                                        <a><span class="pull-right text-muted">
-                                                <i class="fa fa-caret-down"></i></span>
-                                            <i class="icon mdi-action-bookmark-outline i-20"></i>
-                                            <span class="font-normal">Blog</span>
-                                        </a>
-                                        <ul class="nav nav-sub">
-                                            <li class="{{ check_item_active('inner_li_add', 'articles', 'edit') }}">
-                                                <a href="{{ route('articles.edit', ['id' => 0]) }}">Agregar
-                                                    artículo</a>
-                                            </li>
-                                            <li
-                                                class="{{ check_item_active('inner_li_list', 'articles', 'list,edit') }}">
-                                                <a href="{{ route('articles.list') }}">Lista de artículos</a>
-                                            </li>
-                                            <li class="{{ check_item_active('inner_li', 'articles', 'categories') }}">
-                                                <a href="{{ route('articles.categories') }}">Administrar categorías</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="{{ check_item_active('main_li', 'locations') }}">
-                                        <a><span class="pull-right text-muted">
-                                                <i class="fa fa-caret-down"></i></span>
-                                            <i class="icon mdi-communication-location-on i-20"></i>
-                                            <span class="font-normal">Oficinas</span>
-                                        </a>
-                                        <ul class="nav nav-sub">
-                                            <li class="{{ check_item_active('inner_li_add', 'locations', 'edit') }}">
-                                                <a href="{{ route('locations.edit', ['id' => 0]) }}">Agregar
-                                                    oficina</a>
-                                            </li>
-                                            <li
-                                                class="{{ check_item_active('inner_li_list', 'locations', 'list,edit') }}">
-                                                <a href="{{ route('locations.list') }}">Lista de oficinas</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="{{ check_item_active('main_li', 'subscribers') }}">
-                                        <a href="{{ route('subscribers.list') }}">
-                                            <i class="icon mdi-action-verified-user i-20"></i>
-                                            <span class="font-normal">Newsletter</span>
+                                            <i
+                                                class="icon mdi-editor-insert-chart
+                                            i-20"></i>
+                                            <span class="font-normal">Informes</span>
                                         </a>
                                     </li>
-
 
                                     <li class="b-b b m-v-sm"></li>
-
+                                    <li class="{{ check_item_active('main_li', 'account') }}">
+                                        <a md-ink-ripple href="{{ route('account.edit') }}">
+                                            <i
+                                                class="icon mdi-action-settings
+                                            i-20"></i>
+                                            <span>Configuracion</span>
+                                        </a>
+                                    </li>
                                     <li class="{{ check_item_active('main_li', 'account') }}">
                                         <a md-ink-ripple href="{{ route('account.edit') }}">
                                             <i class="icon mdi-action-perm-contact-cal i-20"></i>

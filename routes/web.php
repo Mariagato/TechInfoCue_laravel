@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -162,3 +163,6 @@ Auth::routes();
 
 Route::get('login', 'HomeController@login')->name('login');
 Route::post('login/{provider}/callback', 'Auth\LoginController@handleCallback');
+
+Route::get('/test-firebase', [TestController::class, 'index']);
+
