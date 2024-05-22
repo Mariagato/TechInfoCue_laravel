@@ -60,7 +60,7 @@
                                         </a>
                                     </li>
                                     <li class="{{ check_item_active('main_li_id', 'slides', '1') }}">
-                                        <a href="{{ route('slides.edit_slide', ['id' => 1]) }}">
+                                        <a href="{{ route('Items.list') }}">
                                             <i
                                                 class="icon mdi-content-inbox
                                             i-20"></i>
@@ -112,6 +112,24 @@
                                             i-20"></i>
                                             <span class="font-normal">Mantenimiento</span>
                                         </a>
+                                    </li>
+                                    <li class="{{ check_item_active('main_li', 'contents') }}">
+                                        <a><span class="pull-right text-muted">
+                                                <i class="fa fa-caret-down"></i></span>
+                                            <i
+                                                class="icon mdi-action-assignment-turned-in
+                                            i-20"></i>
+                                            <span class="font-normal">Espacios</span>
+                                        </a>
+                                        <ul class="nav nav-sub">
+                                            <li class="{{ check_item_active('inner_li_add', 'sedes', 'edit') }}">
+                                                <a href="{{ route('Sedes.list') }}">Sedes</a>
+                                            </li>
+                                            <li
+                                                class="{{ check_item_active('inner_li_list', 'classrooms', 'list,edit') }}">
+                                                <a href="{{ route('Sedes.list') }}">Salones</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li class="{{ check_item_active('main_li', 'users') }}">
                                         <a><span class="pull-right text-muted">

@@ -117,6 +117,27 @@ Route::group(['prefix' => 'cms'], function () {
         Route::delete('delete/{id}', 'ArticleController@delete');
     });
 
+    Route::group(['prefix' => 'items'], function () {
+        Route::get('list', 'ItemController@index')->name('Items.list');
+        Route::get('json-list', 'ItemController@jsonList')->name('Items.json-list');
+        Route::get('edit/{id}', 'ItemController@edit')->name('Items.edit');
+        Route::get('create/', 'ItemController@new')->name('Items.new');
+        Route::post('edit', 'ItemController@update')->name('Items.update');
+        Route::post('create', 'ItemController@store')->name('Items.store');
+        Route::get('categories', 'ItemController@categories')->name('Items.categories');
+        Route::delete('delete/{id}', 'ItemController@delete');
+    });
+
+    Route::group(['prefix' => 'sedes'], function () {
+        Route::get('list', 'SedeController@index')->name('Sedes.list');
+        Route::get('json-list', 'SedeController@jsonList')->name('Sedes.json-list');
+        Route::get('edit/{id}', 'SedeController@edit')->name('Sedes.edit');
+        Route::get('create/', 'SedeController@new')->name('Sedes.new');
+        Route::post('edit', 'SedeController@update')->name('Sedes.update');
+        Route::post('create', 'SedeController@store')->name('Sedes.store');
+        Route::delete('delete/{id}', 'SedeController@delete');
+    });
+
     //Services
     Route::group(['prefix' => 'services'], function () {
         Route::get('list', 'ServiceController@index')->name('services.list');

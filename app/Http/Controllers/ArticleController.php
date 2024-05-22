@@ -24,7 +24,7 @@ class ArticleController extends Controller
     public function __construct(Article $article, InfoArticle $info)
     {
         $this->article = $article;
-        $this->info    = $info;
+        $this->info = $info;
 
     }
 
@@ -49,16 +49,16 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $reg['option']      = 'Agregar';
-        $reg['path']        = 'article';
-        $reg['categories']  = Category::selectArray(0, collect([]), 'article');
+        $reg['option'] = 'Agregar';
+        $reg['path'] = 'article';
+        $reg['categories'] = Category::selectArray(0, collect([]), 'article');
         $reg['tam_gallery'] = '900px ancho x 600px de alto';
         if ($id > 0) {
-            $reg['reg']        = $this->article->find($id);
+            $reg['reg'] = $this->article->find($id);
             $reg['categories'] = Category::selectArray(0, collect([]), 'article', $id);
-            $reg['images']     = GalleryImage::getGallery($reg['reg']->gallery_id);
-            $reg['videos']     = Video::getVideos($reg['reg']->video_gallery_id);
-            $reg['option']     = 'Editar';
+            $reg['images'] = GalleryImage::getGallery($reg['reg']->gallery_id);
+            $reg['videos'] = Video::getVideos($reg['reg']->video_gallery_id);
+            $reg['option'] = 'Editar';
         }
 
         $reg['message'] = session('message');
@@ -77,34 +77,34 @@ class ArticleController extends Controller
      */
     public function updateOrCreate($id = 0, Request $request)
     {
-        $dat         = $request->dat;
-        $info        = $request->info;
+        $dat = $request->dat;
+        $info = $request->info;
         $dat['date'] = empty($dat['date']) ? Carbon::now()->toDateString() : $dat['date'];
 
         if ($request->file('image')) {
-            $sizes        = ['s' => [450, 350]];
+            $sizes = ['s' => [450, 350]];
             $dat['image'] = $this->article->uploadImage($request->file('image'), $sizes, 70);
         }
         if ($request->file('image_seo')) {
-            $sizes        = ['s' => [600, 315]];
+            $sizes = ['s' => [600, 315]];
             $dat['image_seo'] = $this->article->uploadImage($request->file('image_seo'), $sizes, 70);
         }
         if ($id > 0) {
             $article = $this->article->find($id);
             if ($request->get('delimg')) {
-                $sizes        = ['s'];
+                $sizes = ['s'];
                 $dat['image'] = $this->article->deleteImage($article->image, $sizes);
             }
             if ($request->get('delimg_seo')) {
-                $sizes        = ['s'];
+                $sizes = ['s'];
                 $dat['image_seo'] = $this->article->deleteImage($article->image_seo, $sizes);
             }
             $article->update($dat);
             $info['article_id'] = $id;
             $this->info->updateLang($info);
         } else {
-            $article            = $this->article->create($dat);
-            $id                 = $article->id;
+            $article = $this->article->create($dat);
+            $id = $article->id;
             $info['article_id'] = $id;
             $this->info->createLang($info);
         }
@@ -124,19 +124,23 @@ class ArticleController extends Controller
         $articles = $this->article->datatable();
 
         return DataTables::of($articles)
-                         ->addColumn('options', function ($article) {
-                             return '<a class="btn btn-sm btn-outline-main" href="' . route('Article',
-                                     ['id' => $article->id]) . '" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Ver</a>
-                        <a class="btn btn-sm btn-outline-main" href="' . route('articles.edit',
-                                     ['id' => $article->id]) . '"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+            ->addColumn('options', function ($article) {
+                return '<a class="btn btn-sm btn-outline-main" href="' . route(
+                    'Article',
+                    ['id' => $article->id]
+                ) . '" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Ver</a>
+                        <a class="btn btn-sm btn-outline-main" href="' . route(
+                        'articles.edit',
+                        ['id' => $article->id]
+                    ) . '"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                         <a class="btn btn-sm btn-outline-danger" href="javascript:deleteRow(' . $article->id . ')"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</a>';
-                         })
-                         ->editColumn('date', function ($section) {
+            })
+            ->editColumn('date', function ($section) {
 
-                             return format_date($section->date);
-                         })
-                         ->rawColumns(['options'])
-                         ->make();
+                return format_date($section->date);
+            })
+            ->rawColumns(['options'])
+            ->make();
     }
 
     /**
@@ -146,17 +150,19 @@ class ArticleController extends Controller
      */
     public function categories()
     {
-        $reg['parents']      = Category::where([
-            'type'   => 'article',
+        $reg['parents'] = Category::where([
+            'type' => 'article',
             'parent' => 0,
-            'hide'   => 0
-        ])->with('info')->orderBy('position',
-            'asc')->get();
-        $reg['type']         = 'article';
-        $reg['title_page']   = 'Categorías blog';
+            'hide' => 0
+        ])->with('info')->orderBy(
+                'position',
+                'asc'
+            )->get();
+        $reg['type'] = 'article';
+        $reg['title_page'] = 'Categorías blog';
         $reg['title_parent'] = 'Blog';
         $reg['route_parent'] = route('articles.list');
-        $reg['level_limit']  = 0;
+        $reg['level_limit'] = 0;
 
         return view('admin.manage-categories', $reg);
     }
