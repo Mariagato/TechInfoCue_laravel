@@ -3,9 +3,9 @@
     <div class="left">
         <div class="box bg-white">
             <div class="navbar md-whiteframe-z1 no-radius bg-main">
-                <a class="navbar-brand">
-                    <img src="{{ asset('images/logo.png') }}" alt="." style="max-height: 30px;">
-                    <span class="hidden-folded m-l inline text-white">{{ config('app.name', 'CMS') }}</span>
+                <a class="navbar-brand" style="">
+                    <img src="{{ asset('images/log_u.png') }}" alt="." style="max-height: 60px;">
+                    <span class="hidden-folded m-l inline text-white"></span>
                 </a>
             </div>
             <div class="box-row">

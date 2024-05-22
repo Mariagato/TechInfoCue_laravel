@@ -15,8 +15,7 @@
 <body>
     <div class="app bg-main-gradient">
         @yield('body')
-        <p class="text-center text-white">&copy; Copyright {{ date('Y') }} by <a href="//rhiss.net"
-                target="_blank">Rhiss.net</a></p>
+
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/admin-global.min.js') }}" defer></script>
