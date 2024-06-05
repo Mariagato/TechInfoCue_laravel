@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TestController;
 
 /*
@@ -128,6 +129,7 @@ Route::group(['prefix' => 'cms'], function () {
         Route::delete('delete/{id}', 'ItemController@delete');
     });
 
+    //Sedes
     Route::group(['prefix' => 'sedes'], function () {
         Route::get('list', 'SedeController@index')->name('Sedes.list');
         Route::get('json-list', 'SedeController@jsonList')->name('Sedes.json-list');
@@ -137,6 +139,51 @@ Route::group(['prefix' => 'cms'], function () {
         Route::post('create', 'SedeController@store')->name('Sedes.store');
         Route::delete('delete/{id}', 'SedeController@delete');
     });
+
+    //Prestamos 
+    Route::group(['prefix' => 'prestamos'], function () {
+        Route::get('list', 'PrestamoController@index')->name('Prestamos.list');
+        Route::get('json-list', 'PrestamoController@jsonList')->name('Prestamos.json-list');
+        Route::get('edit/{id}', 'PrestamoController@edit')->name('Prestamos.edit');
+        Route::get('create/', 'PrestamoController@new')->name('Prestamos.new');
+        Route::post('edit', 'PrestamoController@update')->name('Prestamos.update');
+        Route::post('create', 'PrestamoController@store')->name('Prestamos.store');
+        Route::delete('delete/{id}', 'PrestamoController@delete');
+    });
+
+    //Reservas 
+    Route::group(['prefix' => 'reservas'], function () {
+        Route::get('list', 'ReservaController@index')->name('Reservas.list');
+        Route::get('json-list', 'ReservaController@jsonList')->name('Reservas.json-list');
+        Route::get('edit/{id}', 'ReservaController@edit')->name('Reservas.edit');
+        Route::get('create/', 'ReservaController@new')->name('Reservas.new');
+        Route::post('edit', 'ReservaController@update')->name('Reservas.update');
+        Route::post('create', 'ReservaController@store')->name('Reservas.store');
+        Route::delete('delete/{id}', 'ReservaController@delete');
+    });
+
+    //Classrooms
+    Route::group(['prefix' => 'Classrooms'], function () {
+        Route::get('list', 'ClassroomController@index')->name('Classrooms.list');
+        Route::get('json-list', 'ClassroomController@jsonList')->name('Classrooms.json-list');
+        Route::get('edit/{id}', 'ClassroomController@edit')->name('Classrooms.edit');
+        Route::get('create/', 'ClassroomController@new')->name('Classrooms.new');
+        Route::post('edit', 'ClassroomController@update')->name('Classrooms.update');
+        Route::post('create', 'ClassroomController@store')->name('Classrooms.store');
+        Route::delete('delete/{id}', 'ClassroomController@delete');
+    });
+
+    //Maintenance
+    Route::group(['prefix' => 'Maintenance'], function () {
+        Route::get('list', 'MaintenanceController@index')->name('Maintenance.list');
+        Route::get('json-list', 'MaintenanceController@jsonList')->name('Maintenance.json-list');
+        Route::get('edit/{id}', 'MaintenanceController@edit')->name('Maintenance.edit');
+        Route::get('create/', 'MaintenanceController@new')->name('Maintenance.new');
+        Route::post('edit', 'MaintenanceController@update')->name('Maintenance.update');
+        Route::post('create', 'MaintenanceController@store')->name('Maintenance.store');
+        Route::delete('delete/{id}', 'MaintenanceController@delete');
+    });
+
 
     //Services
     Route::group(['prefix' => 'services'], function () {
@@ -185,5 +232,7 @@ Auth::routes();
 Route::get('login', 'HomeController@login')->name('login');
 Route::post('login/{provider}/callback', 'Auth\LoginController@handleCallback');
 
-Route::get('/test-firebase', [TestController::class, 'index']);
+Route::get('/ingresar-id/{tabla}', [ItemController::class, 'addIdToUsersCollection']);
+
+
 

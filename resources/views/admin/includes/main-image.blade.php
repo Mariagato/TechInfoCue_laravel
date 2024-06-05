@@ -5,9 +5,9 @@
 </div>
 <div class="col-lg-12">
     <input type="hidden" name="delimg" id="delimg" value="0">
-    @if(isset($reg) and $reg->image!="")
-        <a href="{{asset('upload/'.$path.'/s'.$reg->image)}}" class="popup-gallery">
-        <img src="{{asset('upload/'.$path.'/s'.$reg->image)}}" data-load="true" class="img-thumbnail img_preview"
+    @if(isset($reg['reg']) and $reg['reg']['Imagen']!="")
+        <a href="{{asset('upload/'.$reg['reg']['Imagen'])}}" class="popup-gallery">
+        <img src="{{asset('upload/'.$reg['reg']['Imagen'])}}" data-load="true" class="img-thumbnail img_preview"
              width="200">
         </a>
     @else
@@ -19,16 +19,16 @@
     <br>
     <input id="image" type="file" class="hidden feature_image" accept="image/*" name="image">
 
-    <label class="btn btn-outline-main btn_select {{(isset($reg) and $reg->image!="")?'hidden':''}}"
+    <label class="btn btn-outline-main btn_select {{(isset($reg['reg']) and $reg['reg']['Imagen']!="")?'hidden':''}}"
            for="image">
         Selecciona una imagen
     </label>
     <div>
-        <label class="btn btn-outline-main btn_change {{(isset($reg) and $reg->image!="")?'':'hidden'}}"
+        <label class="btn btn-outline-main btn_change {{(isset($reg['reg']) and $reg['reg']['Imagen']!="")?'':'hidden'}}"
                for="image">
             Cambiar
         </label>
-        <label class="btn btn-outline-danger btn_delete {{(isset($reg) and $reg->image!="")?'':'hidden'}}">
+        <label class="btn btn-outline-danger btn_delete {{(isset($reg['reg']) and $reg['reg']['Imagen']!="")?'':'hidden'}}">
             Eliminar
         </label>
     </div>

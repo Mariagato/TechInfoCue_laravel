@@ -9,6 +9,7 @@
     <title>@yield('meta_title'){{ config('app.name', 'CMS') }}</title>
     <!-- Styles -->
     <link href="{{ asset('css/admin-style.min.css') }}" rel="stylesheet">
+    
 </head>
 <body>
 <div class="app">
@@ -46,5 +47,9 @@
 </script>
 @yield('js_vars')
 <script src="{{ asset('js/admin-global.min.js') }}" defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- jQuery UI -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 @yield('scripts')
 </body>

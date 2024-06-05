@@ -25,29 +25,7 @@
                         <div id="nav">
                             <nav ui-nav>
                                 <ul class="nav">
-                                    <!-- languaje -->
-                                    <li md-ink-ripple>
-                                        <a><span class="pull-right text-muted">
-                                                <i class="fa fa-caret-down"></i></span>
-                                            <img src="{{ asset('images/' . app()->getLocale() . '.svg') }}"
-                                                class="lang-icon">
-                                            <span class="font-normal">
-                                                {{ config()->get('languages.' . app()->getLocale()) }}
-                                            </span>
-                                        </a>
-                                        <ul class="nav nav-sub">
-                                            @foreach (config()->get('languages') as $lang => $language)
-                                                @if ($lang != app()->getLocale())
-                                                    <li>
-                                                        <a md-ink-ripple href="{{ route('lang.switch', $lang) }}">
-                                                            {{ $language }}
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                    <!-- / languaje -->
+
 
                                     <li class="nav-header hidden-folded">
                                         Módulos
@@ -67,48 +45,26 @@
                                             <span class="font-normal">Inventario</span>
                                         </a>
                                     </li>
-                                    <li class="{{ check_item_active('main_li', 'contents') }}">
-                                        <a><span class="pull-right text-muted">
-                                                <i class="fa fa-caret-down"></i></span>
+                                    <li class="{{ check_item_active('main_li_id', 'prestamos', '1') }}">
+                                        <a href="{{ route('Prestamos.list') }}">
                                             <i
-                                                class="icon mdi-action-assignment-turned-in
+                                                class="icon mdi-action-class
                                             i-20"></i>
                                             <span class="font-normal">Prestamos</span>
                                         </a>
-                                        <ul class="nav nav-sub">
-                                            <li class="{{ check_item_active('inner_li_add', 'contents', 'edit') }}">
-                                                <a href="{{ route('contents.edit', ['id' => 0]) }}">Disponibilidad</a>
-                                            </li>
-                                            <li
-                                                class="{{ check_item_active('inner_li_list', 'contents', 'list,edit') }}">
-                                                <a href="{{ route('contents.list') }}">reporte del dia</a>
-                                            </li>
-                                        </ul>
                                     </li>
-                                    <li class="{{ check_item_active('main_li', 'contents') }}">
-                                        <a><span class="pull-right text-muted">
-                                                <i class="fa fa-caret-down"></i></span>
-                                            <i
-                                                class="icon mdi-action-event
+                                    <li class="{{ check_item_active('main_li_id', 'reservas', '1') }}">
+                                        <a href="{{ route('Reservas.list') }}">
+                                            <i class="icon mdi-action-class
                                             i-20"></i>
                                             <span class="font-normal">Reservas</span>
                                         </a>
-                                        <ul class="nav nav-sub">
-                                            <li class="{{ check_item_active('inner_li_add', 'contents', 'edit') }}">
-                                                <a href="{{ route('contents.edit', ['id' => 0]) }}">Lista de
-                                                    reservas</a>
-                                            </li>
-                                            <li
-                                                class="{{ check_item_active('inner_li_list', 'contents', 'list,edit') }}">
-                                                <a href="{{ route('contents.list') }}">reporte del dia</a>
-                                            </li>
-                                        </ul>
                                     </li>
-                                    <li class="{{ check_item_active('main_li', 'services') }}">
-                                        <a><span class="pull-right text-muted">
-                                                <i class="fa fa-caret-down"></i></span>
+                                    <li class="{{ check_item_active('main_li_id', 'maintenance', '1') }}">
+                                        <a href="{{ route('Maintenance.list') }}">
                                             <i
                                                 class="icon mdi-action-report-problem
+
                                             i-20"></i>
                                             <span class="font-normal">Mantenimiento</span>
                                         </a>
@@ -127,7 +83,7 @@
                                             </li>
                                             <li
                                                 class="{{ check_item_active('inner_li_list', 'classrooms', 'list,edit') }}">
-                                                <a href="{{ route('Sedes.list') }}">Salones</a>
+                                                <a href="{{ route('Classrooms.list') }}">Salones</a>
                                             </li>
                                         </ul>
                                     </li>
